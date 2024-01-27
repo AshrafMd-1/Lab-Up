@@ -117,7 +117,6 @@ def main():
         if st.button("Refresh", type="primary"):
             st.session_state['worksheet']['uploaded_worksheet_table'] = show_uploaded_lab_worksheets(
                 st.session_state['details']['roll'], st.session_state['details']['ay'], sub_code)
-            st.rerun()
         st.header('', divider='rainbow')
 
         st.header("Upload your Worksheets")
