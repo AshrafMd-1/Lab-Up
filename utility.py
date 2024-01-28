@@ -24,9 +24,10 @@ def login_user(username_f, password_f):
         print(log["msg"])
         return None
 
+
 def got_name(cookies):
     home_url = "https://samvidha.iare.ac.in/home?action=profile"
-    res=requests.get(home_url, cookies=cookies)
+    res = requests.get(home_url, cookies=cookies)
     soup = BeautifulSoup(res.text, features="html.parser")
     details = soup.select(".box-profile")[0]
     img_src = details.select("img")[0].get("src")
@@ -74,8 +75,6 @@ def got_details(soup):
     batch = soup.select("#lab_batch_no")[0].get("value")
     sem = soup.select("#current_sem")[0].get("value")
     return ay, roll, batch, sem
-
-
 
 
 def got_subjects(soup):
@@ -189,3 +188,23 @@ def upload_worksheet(cookies, ay, sem, sub_code, week_no, roll, batch, title, fi
     res = requests.post(upload_url, data=m, headers=headers, cookies=cookies)
     log = json.loads(res.content)
     return log
+
+
+def footer_page():
+    html = """
+    <style>
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        background-color: #f1f1f1;
+        color: black;
+        text-align: center;
+    }
+    </style>
+    <div class="footer">
+    <p>Developed by <a href="https://github.com/AshrafMd-1">Ashraf Md</a></p>
+    </div>
+    """
+    st.markdown(html, unsafe_allow_html=True)

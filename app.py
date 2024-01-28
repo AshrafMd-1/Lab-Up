@@ -1,7 +1,7 @@
 import streamlit as st
 
 from utility import login_user, got_page, got_details, got_subjects, get_open_lab_worksheets, \
-    show_uploaded_lab_worksheets, uploadable_weeks, upload_worksheet, got_name, user_page
+    show_uploaded_lab_worksheets, uploadable_weeks, upload_worksheet, got_name, user_page, footer_page
 
 if 'cookies' not in st.session_state:
     st.session_state['cookies'] = None
@@ -138,18 +138,23 @@ def main():
         week_no = choosen_week.split("-")[1]
         title = titles[weeks.index(choosen_week)]
         upload_form = st.form("upload_form")
-        upload_form.text_input("Academic Year", value=st.session_state['details']['ay'], disabled=True)
-        upload_form.text_input("Semester", value=st.session_state['details']['sem'], disabled=True)
+        upload_form.text_input(
+            "Academic Year", value=st.session_state['details']['ay'], disabled=True)
+        upload_form.text_input(
+            "Semester", value=st.session_state['details']['sem'], disabled=True)
         upload_form.text_input(
             "Subject Code", value=sub_code, disabled=True)
         upload_form.text_input(
             "Week", value=choosen_week, disabled=True)
-        roll = upload_form.text_input("Roll Number", value=st.session_state['details']['roll'])
-        batch = upload_form.text_input("Batch", value=st.session_state['details']['batch'])
+        roll = upload_form.text_input(
+            "Roll Number", value=st.session_state['details']['roll'])
+        batch = upload_form.text_input(
+            "Batch", value=st.session_state['details']['batch'])
         title = upload_form.text_input(
             "Worksheet Title", value=title)
         file = upload_form.file_uploader("Upload your worksheet", type=['pdf'])
-        upload_button = upload_form.form_submit_button("Upload", type="primary")
+        upload_button = upload_form.form_submit_button(
+            "Upload", type="primary")
 
         if upload_button:
             if not file or not roll or not batch or not title:
@@ -189,6 +194,8 @@ def main():
                 st.rerun()
             else:
                 st.toast("Login failed, Please check your credentials", icon="😭")
+
+    footer_page()
 
 
 main()
