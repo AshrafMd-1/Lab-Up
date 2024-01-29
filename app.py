@@ -195,7 +195,7 @@ def main():
             else:
                 st.toast("Login failed, Please check your credentials", icon="😭")
 
-    footer_page()
+    # footer_page()
 
 
 main()
