@@ -112,7 +112,6 @@ def main():
         uploaded_worksheet_table = st.session_state['worksheet']['uploaded_worksheet_table']
         if uploaded_worksheet_table.empty:
             st.error("No uploaded worksheets found")
-            return
         st.table(uploaded_worksheet_table)
         if st.button("Refresh", type="primary"):
             st.session_state['worksheet']['uploaded_worksheet_table'] = show_uploaded_lab_worksheets(
@@ -152,7 +151,8 @@ def main():
             "Batch", value=st.session_state['details']['batch'])
         title = upload_form.text_input(
             "Worksheet Title", value=title)
-        file = upload_form.file_uploader("Upload your worksheet", type=['pdf'])
+        file = upload_form.file_uploader("Upload your worksheet", type=[
+                                         'pdf'], accept_multiple_files=False)
         upload_button = upload_form.form_submit_button(
             "Upload", type="primary")
 
@@ -163,7 +163,7 @@ def main():
             with st.spinner('Uploading...'):
                 log = upload_worksheet(cookies, st.session_state['details']['ay'], st.session_state['details']['sem'],
                                        sub_code,
-                                       week_no, roll, batch, title, file)
+                                       week_no, roll.strip().upper(), batch.strip(), title.strip(), file)
             st.info(f"Status: {log['status']}")
             st.info(f"Message: {log['msg']}")
             if log['status'] == 'success':
